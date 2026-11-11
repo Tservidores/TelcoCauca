@@ -2,7 +2,7 @@
 #include <string>
 #include "Antena.h"
 
-using namespace std
+using namespace std;
 
 Antena::Antena(int idAntena, double frecuenciaMHz, string tecnologia, Tecnico* responsableMantenimiento) {
 	this->idAntena = idAntena;
