@@ -1,0 +1,16 @@
+# Ejecutables y binarios de compilacion
+*.exe
+*.o
+*.o.d
+*.out
+
+# Carpetas temporales de Zinjal
+Debug/
+Release/
+.zinjal/
+
+# Respaldos de Zinjal
+*.zpj.bak
+*.zpr.bak
+*.bak
+*~
