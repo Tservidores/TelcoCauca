@@ -8,6 +8,7 @@ using namespace std;
 
 // Declaracion adelantada: evita la inclusion ciclica. El #include "Antena.h" va en Torre.cpp
 class Antena;
+class Tecnico;
 
 class Torre {
 private:
@@ -22,6 +23,7 @@ public:
 	void agregarAntena(Antena* antena);
 	int contarAntenas() const;
 	int contarAntenas5G() const;
+	int remplazarTecnico(Tecnico* antiguo, Tecnico* nuevo);
 
 	void mostrarInformacion() const;
 

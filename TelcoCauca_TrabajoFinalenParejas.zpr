@@ -15,7 +15,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=.
 inherits_from=
-current_source=ClienteRemoto.cpp
+current_source=main.cpp
 path_char=\
 [source]
 path=main.cpp
@@ -83,7 +83,7 @@ cursor=0:0
 open=true
 [source]
 path=ClienteRemoto.cpp
-cursor=38:64
+cursor=0:0
 open=true
 [source]
 path=ServidorUDP.cpp
@@ -91,7 +91,7 @@ cursor=0:0
 open=true
 [source]
 path=ClienteUDP.cpp
-cursor=5:20
+cursor=0:0
 open=true
 [header]
 path=Tecnico.h

@@ -34,6 +34,19 @@ int Torre::contarAntenas5G() const {
 	return contador;
 }
 
+int Torre::remplazarTecnico(Tecnico* antiguo, Tecnico* nuevo) {
+	int cambios = 0;
+	
+	for (Antena* antena : listaAntenas) {
+		if (antena->getResponsableMantenimiento() == antiguo) {
+			antena->asignarTecnico(nuevo);
+			cambios++;
+		}
+	}
+	
+	return cambios;
+}
+
 void Torre::mostrarInformacion() const {
 	cout << "Torre " << idTorre << " | " << ubicacion << " | " << alturaMetros << " metros" << endl;
 	cout << "Antenas instaladas: " << contarAntenas() << " (5G: " << contarAntenas5G() << ")" << endl;

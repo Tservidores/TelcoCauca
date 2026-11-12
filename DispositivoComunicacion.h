@@ -24,6 +24,6 @@ public:
 	virtual ~DispositivoComunicacion() = default;
 };
 
-void validarYTransmitir(DispositivoComunicacion* dispositivo);
+void procesarDispositivo(DispositivoComunicacion* dispositivo);
 
 #endif

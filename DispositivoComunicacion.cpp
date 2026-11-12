@@ -18,7 +18,7 @@ string DispositivoComunicacion::getTipo() const {
 	return tipo;
 }
 
-void validarYTransmitir(DispositivoComunicacion* dispositivo) {
+void procesarDispositivo(DispositivoComunicacion* dispositivo) {
 	// Guarda defensiva: revisar el puntero ANTES de usar ->
 	if (dispositivo == nullptr) {
 		throw invalid_argument("Puntero nulo detectado");

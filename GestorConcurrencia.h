@@ -15,7 +15,7 @@ private:
 	vector<string> bufferTramas;   // Buffer compartido por todos los hilos
 
 public:
-	void procesarDispositivo(DispositivoComunicacion* dispositivo, int& contador);
+	void supervisarDispositivo(DispositivoComunicacion* dispositivo, int& contador);
 	void procesarEventos(vector<EventoIngenieria2027>& eventos);
 	void mostrarBuffer();
 };

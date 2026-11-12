@@ -65,6 +65,11 @@ void modulo1() {
 	torre.agregarAntena(&antena3);
 
 	torre.mostrarInformacion();
+
+	cout << endl << "Cambio de turno: Laura reemplaza a Carlos" << endl;
+	int cambios = torre.remplazarTecnico(&tecnico1, &tecnico2);
+	cout << "Antenas reasignadas: " << cambios << endl;
+	torre.mostrarInformacion();
 }
 
 
@@ -76,22 +81,22 @@ vector<string> modulo2() {
 
 	try {
 		NodoRedInteligente nodo1("192.168.1.10", "AA:BB:CC:11:22:33", true, "Temperatura", 25.5, 1, 100);
-		NodoRedInteligente nodo2("192.168.1.11", "AA:BB:CC:44:55:66", true, "Humedad", 60.0, 2, 200);
+		NodoRedInteligente nodo2("192.168.1.10", "AA:BB:CC:44:55:66", true, "Temperatura", 27.5, 2, 200);
 
 		cout << nodo1;
 		cout << nodo2;
 
 		NodoRedInteligente nodo3 = nodo1 + nodo2;
-		cout << "Suma de cargas (nodo1 + nodo2): " << endl << nodo3;
+		cout << "Fusion nodo1 + nodo2 (misma IP): " << endl << nodo3;
 
 		tramas.push_back(SerializadorTramas::serializar(nodo1));
 		tramas.push_back(SerializadorTramas::serializar(nodo2));
 		tramas.push_back(SerializadorTramas::serializar(nodo3));
 		cout << "Trama serializada del nodo 1: " << tramas.at(0) << endl;
 
-		cout << endl << "Prueba 1: sumar un nodo inactivo..." << endl;
-		NodoRedInteligente nodoInactivo("192.168.1.12", "AA:BB:CC:77:88:99", false, "Presion", 40.0, 3, 50);
-		NodoRedInteligente invalido = nodo1 + nodoInactivo;
+		cout << endl << "Prueba 1: sumar nodos con IP distinta..." << endl;
+		NodoRedInteligente nodoOtraRed("10.0.0.5", "AA:BB:CC:77:88:99", true, "Humedad", 60.0, 3, 50);
+		NodoRedInteligente invalido = nodo1 + nodoOtraRed;
 	}
 	catch (const ExcepcionNodoRed& e) {
 		cout << "Excepcion capturada: " << e.what() << endl;
@@ -131,7 +136,7 @@ void modulo3(vector<DispositivoComunicacion*>& dispositivos) {
 
 	for (DispositivoComunicacion* dispositivo : dispositivos) {
 		try {
-			validarYTransmitir(dispositivo);
+			procesarDispositivo(dispositivo);
 			cout << "  Serializado: " << dispositivo->serializar() << endl;
 		}
 		catch (const invalid_argument& e) {
@@ -154,14 +159,13 @@ void modulo4(vector<DispositivoComunicacion*>& dispositivos) {
 
 	// Un hilo por dispositivo. ref() pasa el contador por referencia (sin ref se copiaria)
 	for (DispositivoComunicacion* dispositivo : dispositivos) {
-		hilos.push_back(thread(&GestorConcurrencia::procesarDispositivo, &gestor, dispositivo, ref(contador)));
+		hilos.push_back(thread(&GestorConcurrencia::supervisarDispositivo, &gestor, dispositivo, ref(contador)));
 	}
 
 	vector<EventoIngenieria2027> eventos;
-	eventos.push_back(EventoIngenieria2027("IEEE LASCAS 2027 - Simposio Latinoamericano de Circuitos y Sistemas", "23-26 febrero 2027", "Ciudad de Panama, Panama"));
-	eventos.push_back(EventoIngenieria2027("IEEE PES GTD Latin America 2027 - Generacion, Transmision y Distribucion", "8-10 marzo 2027", "Medellin, Colombia"));
-	eventos.push_back(EventoIngenieria2027("IEEE LatinIoT 2027 - Conferencia Latinoamericana de Internet de las Cosas", "28-30 abril 2027", "Santiago, Chile"));
-	eventos.push_back(EventoIngenieria2027("IEEE ICC 2027 - Conferencia Internacional de Comunicaciones", "30 mayo - 3 junio 2027", "Washington D.C., Estados Unidos"));
+	eventos.push_back(EventoIngenieria2027("IEEE PES GTD Latin America 2027 - Generacion, Transmision y Distribucion de Energia", "8-10 marzo 2027", "Medellin, Colombia"));
+	eventos.push_back(EventoIngenieria2027("CICI 2027 - IV Congreso Internacional de Ciencia e Ingenieria", "14-16 abril 2027", "Pasto, Colombia"));
+	eventos.push_back(EventoIngenieria2027("IEEE Colombian Caribbean Conference (C3) 2027", "Septiembre 2027", "Cartagena, Colombia"));
 
 	thread hiloEventos(&GestorConcurrencia::procesarEventos, &gestor, ref(eventos));
 

@@ -23,14 +23,16 @@ int NodoRedInteligente::getPaquetesProcesados() const {
 }
 
 NodoRedInteligente NodoRedInteligente::operator+(const NodoRedInteligente& otro) const {
-	if (this->estadoOperativo == false || otro.estadoOperativo == false) {
-		throw ExcepcionNodoRed("No se puede sumar la carga de un nodo inactivo");
+	if (this->direccionIP != otro.direccionIP) {
+		throw ExcepcionNodoRed("Nodos incompatibles: IP " + this->direccionIP + " y " + otro.direccionIP);
 	}
 
+	int idCombinado = this->idNodo * 10 + otro.idNodo;
 	int cargaTotal = this->paquetesProcesados + otro.paquetesProcesados;
+	double lecturaPromedio = (this->valorLectura + otro.valorLectura) / 2.0;
 
 	NodoRedInteligente resultado(this->direccionIP, this->direccionMAC, this->estadoOperativo,
-								 this->tipoSensor, this->valorLectura, this->idNodo, cargaTotal);
+								 this->tipoSensor, lecturaPromedio, idCombinado, cargaTotal);
 	return resultado;
 }
 

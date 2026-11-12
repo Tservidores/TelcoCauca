@@ -8,10 +8,10 @@
 
 using namespace std;
 
-void GestorConcurrencia::procesarDispositivo(DispositivoComunicacion* dispositivo, int& contador) {
+void GestorConcurrencia::supervisarDispositivo(DispositivoComunicacion* dispositivo, int& contador) {
 	// El try-catch va DENTRO del hilo: si una excepcion se escapa del hilo, el programa se cierra
 	try {
-		validarYTransmitir(dispositivo);
+		procesarDispositivo(dispositivo);
 
 		lock_guard<mutex> bloqueo(mutexBuffer);
 		contador++;
